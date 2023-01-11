@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlotSpawner : MonoBehaviour
@@ -12,6 +13,7 @@ public class PlotSpawner : MonoBehaviour
     private float lastZpos = -56f;
 
     public List<GameObject> plots;
+    private Transform player;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +22,8 @@ public class PlotSpawner : MonoBehaviour
         {
             SpawnPlot();
         }
-        
+
+        player = GameObject.Find("Player").transform;
     }
 
     // Update is called once per frame
