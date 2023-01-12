@@ -5,13 +5,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float movementSpeed = 10f;
-    public float minXValue = -6.5f;
-    public float maxXValue = 6.5f;
+    public float minXValue = -5f;
+    public float maxXValue = 5f;
     private float previousX;
     public float rotationSpeed = 100f;
     //private float previousY;
 
     public SpawnManager spawnManager;
+    public GameManager gameManager;
 
     public Animator model;
 
@@ -40,7 +41,6 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log(999);
             model.Play("Jump");
             GetComponent<Animator>().Play("Jump");
         }
@@ -48,7 +48,15 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(123);
-        spawnManager.SpawnTriggerEntered();
+        if (other.tag == "SpawnTrigger")
+        {
+            spawnManager.SpawnTriggerEntered();
+        }
+
+        if (other.tag == "Coin")
+        {
+            gameManager.CoinCollected();
+            Destroy(other.gameObject);
+        }
     }
 }
