@@ -60,6 +60,11 @@ public class PlayerController : MonoBehaviour
 
             StartCoroutine(WaitAndRestart(0.01f)); 
         }
+
+        if (collision.gameObject.tag == "Obstacle")
+        {
+            StartCoroutine(WaitAndRestart(0.01f));
+        }
     }
 
     private IEnumerator WaitAndRestart(float waitTime)

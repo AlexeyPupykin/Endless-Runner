@@ -8,6 +8,7 @@ TagManager:
   - House
   - Coin
   - Enemy
+  - Obstacle
   layers:
   - Default
   - TransparentFX
