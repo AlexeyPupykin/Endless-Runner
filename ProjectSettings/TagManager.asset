@@ -6,6 +6,8 @@ TagManager:
   tags:
   - SpawnTrigger
   - House
+  - Coin
+  - Enemy
   layers:
   - Default
   - TransparentFX

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -9,31 +8,21 @@ public class PlayerController : MonoBehaviour
     public float maxXValue = 5f;
     private float previousX;
     public float rotationSpeed = 100f;
-    //private float previousY;
 
     public SpawnManager spawnManager;
     public GameManager gameManager;
 
     public Animator model;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         previousX = transform.position.x;
 
         float hMovement = Input.GetAxis("Horizontal") * movementSpeed / 2;
-        //float vMovement = Input.GetAxis("Vertical") * movementSpeed;
 
         transform.Translate(new Vector3(hMovement, 0, movementSpeed) * Time.deltaTime);
 
         var deltaX = transform.position.x - previousX;
-
 
         model.transform.eulerAngles = new Vector3(transform.eulerAngles.y, deltaX * rotationSpeed, transform.eulerAngles.z);
 
@@ -57,6 +46,26 @@ public class PlayerController : MonoBehaviour
         {
             gameManager.CoinCollected();
             Destroy(other.gameObject);
+        } 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            movementSpeed = 0f;
+
+            collision.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+
+            StartCoroutine(WaitAndRestart(0.01f)); 
         }
+    }
+
+    private IEnumerator WaitAndRestart(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        gameManager.GameOver();
+        Destroy(gameObject);
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,7 +7,6 @@ public class RoadSpawner : MonoBehaviour
     public List<GameObject> roads;
     private float offset = 56f;
 
-    // Start is called before the first frame update
     void Start()
     {
         if (roads != null && roads.Any())

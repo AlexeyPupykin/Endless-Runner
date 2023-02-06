@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,18 +5,6 @@ public class CoinCollectableSpace : MonoBehaviour
 {
     public List<float> collectableLanesX;
     public List<float> collectableJumpsX;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public float GetLane()
     {

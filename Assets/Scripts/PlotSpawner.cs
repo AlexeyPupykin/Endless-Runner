@@ -1,12 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class PlotSpawner : MonoBehaviour
 {
     private int initAmount = 5;
-    private float initStartZ = 25;
     private float plotSize = 56f;
     private float xPosLeft = -36f;
     private float xPosRight = 36f;
@@ -15,7 +12,6 @@ public class PlotSpawner : MonoBehaviour
     public List<GameObject> plots;
     private Transform player;
 
-    // Start is called before the first frame update
     void Start()
     {
         for (int i = 0; i < initAmount; i++)
@@ -24,12 +20,6 @@ public class PlotSpawner : MonoBehaviour
         }
 
         player = GameObject.Find("Player").transform;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void SpawnPlot()

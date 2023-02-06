@@ -11,20 +11,14 @@ public class ObstacleSpawner : MonoBehaviour
     public List<GameObject> obstacles;
 
     public GameObject coins;
+    public GameObject enemy;
 
-    // Start is called before the first frame update
     void Start()
     {
         for (int i = 0; i < initAmount; i++)
         {
             SpawnObstacles();
         }   
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void SpawnObstacles()
@@ -41,17 +35,32 @@ public class ObstacleSpawner : MonoBehaviour
 
                 Instantiate(obstacle, new Vector3(0, 0, lastSpawnZ), obstacle.transform.rotation);
 
+                // Coins
                 if (Random.Range(0, 2) == 1 && coinInstance == null)
                 {
                     CoinCollectableSpace space = obstacle.GetComponent<CoinCollectableSpace>();
                     coinInstance = Instantiate(coins, new Vector3(space.GetLane(), 0, lastSpawnZ + 0), coins.transform.rotation);
                 }
+
+                // Enemy
+                if (Random.Range(0, 5) == 1)
+                {
+                    CoinCollectableSpace space = obstacle.GetComponent<CoinCollectableSpace>();
+                    Instantiate(enemy, new Vector3(space.GetLane(), 0, lastSpawnZ + Random.Range(0f, 11f)), enemy.transform.rotation);
+                }
             }
             else
             {
+                // Coins
                 if (Random.Range(0, 2) == 1 && coinInstance == null)
                 {
                     coinInstance = Instantiate(coins, new Vector3(0, 0, lastSpawnZ + 0), coins.transform.rotation);
+                }
+
+                // Enemy
+                if (Random.Range(0, 5) == 1)
+                {
+                    Instantiate(enemy, new Vector3(Random.Range(-5f, 05f), 0, lastSpawnZ + Random.Range(0f, 11f)), enemy.transform.rotation);
                 }
             }
         }

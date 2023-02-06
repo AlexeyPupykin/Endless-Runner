@@ -8,16 +8,24 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI uiDistance;
     public TextMeshProUGUI uiCoins;
+    public GameObject gameOverMenu;
 
-    // Start is called before the first frame update
+    public GameData gameData;
+
+    private void Awake()
+    {
+        gameData = SaveSystem.Load();
+    }
+
     void Start()
     {
         player = GameObject.Find("Player");   
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (!player) return;
+
         int distance = Mathf.RoundToInt(player.transform.position.z);
         uiDistance.text = distance.ToString() + " m";
         uiCoins.text = coins.ToString() + " coins";
@@ -26,5 +34,14 @@ public class GameManager : MonoBehaviour
     public void CoinCollected()
     {
         coins++;
+    }
+
+    public void GameOver()
+    {
+        gameData.totalCoins += coins;
+        gameData.totalDistance += Mathf.RoundToInt(player.transform.position.z);
+        SaveSystem.Save(gameData);
+
+        gameOverMenu.SetActive(true);
     }
 }
